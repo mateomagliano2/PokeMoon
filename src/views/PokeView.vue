@@ -33,7 +33,7 @@ getData();
             </div>
 
             <div class="d-flex justify-content-center my-2">
-                <img :src="poke.sprites?.front_default" alt="Pokemon Image" class="img-fluid"
+                <img :src="poke.sprites?.front_default" alt="Pokemon Image"
                     style="width: 140px; height: 140px; object-fit: contain;" />
             </div>
 
