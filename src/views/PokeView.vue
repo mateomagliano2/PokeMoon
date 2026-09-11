@@ -7,6 +7,8 @@ import { ref } from 'vue';
 const route = useRoute();
 const poke = ref({});
 const router = useRouter();
+const loading = ref(true);
+
 const back = () => {
     router.back();
 }
@@ -18,13 +20,20 @@ const getData = async () => {
         poke.value = response.data;
     }
     catch (error) {
+        poke.value = null;
         console.log(error);
+    }
+    finally {
+        setTimeout(() => {
+            loading.value = false;
+        }, 100);
     }
 }
 getData();
 </script>
 <template>
-    <div class="container d-flex justify-content-center align-items-center my-5">
+    <p v-if="loading" class="text-center my-5">Cargando...</p>
+    <div v-if="poke" class="container d-flex justify-content-center align-items-center my-5">
         <div class="card border-0 shadow-sm rounded-4 p-4 text-center bg-body" style="max-width: 20rem; width: 100%;">
             <div class="card-body px-0 pt-0">
                 <span class="text-muted small fw-medium text-uppercase">Pokémon</span>
@@ -42,4 +51,6 @@ getData();
             </div>
         </div>
     </div>
+    <h2 v-else class="text-center my-5">No existe el pokemon <strong>{{ $route.params.name.toString().toUpperCase()
+            }}</strong></h2>
 </template>
